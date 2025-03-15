@@ -1,0 +1,11 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "zkml"
+version = "0.1.0"
+description = "ZKML"
+dependencies = [
+    "numpy"
+]
