@@ -18,7 +18,6 @@ async def matmul(a, b):
     assert isinstance(b, np.ndarray), "Numpy only"
 
     reader, writer = client_manager.client()
-
     await protocol.send_matrix(a, writer) 
     await protocol.send_matrix(b, writer)
     evidence, c = await protocol.receive_matrix(reader)
