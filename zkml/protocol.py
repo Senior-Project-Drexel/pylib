@@ -1,28 +1,27 @@
-import struct
 import numpy as np
+import zkml.proto.matrix_proto_pb2 as matrix_pb
+
 
 async def send_matrix(m, writer):
-    r, c = m.shape
-    writer.write(struct.pack(">I", r))
-    writer.write(struct.pack(">I", c))
-    for e in m.flatten():
-        writer.write(struct.pack(">I", e))
+    matrix_msg = matrix_pb.MatrixMessage()
+    matrix_msg.rows = m.shape[0]
+    matrix_msg.cols = m.shape[1]
+    matrix_msg.data.extend(m.flatten().tolist())
+    
+    serialized = matrix_msg.SerializeToString()
+    writer.write(len(serialized).to_bytes(4, byteorder='big'))
+    writer.write(serialized)
     await writer.drain()
 
 async def receive_matrix(reader):
-    left = None
-    num = []
+    len_bytes = await reader.readexactly(4)
+    msg_len = int.from_bytes(len_bytes, byteorder='big')
+    
+    msg_bytes = await reader.readexactly(msg_len)
+    matrix_msg = matrix_pb.MatrixMessage()
+    matrix_msg.ParseFromString(msg_bytes)
 
-    while True:
-        buf = await reader.read(1024)
-        n = len(buf) // 4
-        r = len(buf) % 4
-
-        for i in range(0, n):
-            n, = struct.unpack(">I", buf[i * 4:(i + 1) * 4])
-            num.append(n)
-
-        if len(num) < 2 or len(num) != num[0] * num[1] + 2:
-            continue
-
-        return None, np.array(num[2:]).reshape(num[0], num[1])
+    # TODO:
+    evidence = None
+    
+    return evidence, np.array(matrix_msg.data).reshape(matrix_msg.rows, matrix_msg.cols)
