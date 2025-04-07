@@ -1,5 +1,8 @@
 import asyncio
 
+from zkml.client import Client
+
+
 class RoundRobinClientManager:
     def __init__(self, addresses):
         self.addresses = addresses
@@ -7,10 +10,7 @@ class RoundRobinClientManager:
 
         self.futures = []
         for ip, port in addresses:
-            self.futures.append(asyncio.open_connection(ip, port))
-
-    async def ready(self):
-        self.clients = await asyncio.gather(*self.futures)
+            self.futures.append(Client(ip, port))
 
     def client(self):
         client = self.clients[self.next_client]
