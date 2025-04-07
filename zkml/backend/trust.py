@@ -5,8 +5,7 @@ class Trust:
     # TODO: specify trust or freivalds
     async def matmul(self, a, b):
         client = self.client_manager.client()
-        await client.send_matrix(a)
-        await client.send_matrix(b)
-        evidence, c = await client.recv_matrix()
+        matrix_id = await client.send_matrix(a, b, op=0)
+        _, c = await client.recv_matrix(matrix_id)
 
         return c

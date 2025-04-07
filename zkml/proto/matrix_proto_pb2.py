@@ -13,13 +13,19 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12matrix_proto.proto\x12\x0cmatrix_proto\"9\n\rMatrixMessage\x12\x0c\n\x04rows\x18\x01 \x01(\r\x12\x0c\n\x04\x63ols\x18\x02 \x01(\r\x12\x0c\n\x04\x64\x61ta\x18\x03 \x03(\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12matrix_proto.proto\x12\x0cmatrix_proto\"2\n\x06Matrix\x12\x0c\n\x04rows\x18\x01 \x01(\r\x12\x0c\n\x04\x63ols\x18\x02 \x01(\r\x12\x0c\n\x04\x64\x61ta\x18\x03 \x03(\x01\"\x9b\x01\n\rMatrixRequest\x12%\n\x07matrix1\x18\x01 \x01(\x0b\x32\x14.matrix_proto.Matrix\x12%\n\x07matrix2\x18\x02 \x01(\x0b\x32\x14.matrix_proto.Matrix\x12\x30\n\toperation\x18\x03 \x01(\x0e\x32\x1d.matrix_proto.MatrixOperation\x12\n\n\x02id\x18\x04 \x01(\r\"B\n\x0eMatrixResponse\x12$\n\x06matrix\x18\x01 \x01(\x0b\x32\x14.matrix_proto.Matrix\x12\n\n\x02id\x18\x02 \x01(\r*\x1f\n\x0fMatrixOperation\x12\x0c\n\x08MULTIPLY\x10\x00\x62\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'matrix_proto_pb2', globals())
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  _MATRIXMESSAGE._serialized_start=36
-  _MATRIXMESSAGE._serialized_end=93
+  _MATRIXOPERATION._serialized_start=314
+  _MATRIXOPERATION._serialized_end=345
+  _MATRIX._serialized_start=36
+  _MATRIX._serialized_end=86
+  _MATRIXREQUEST._serialized_start=89
+  _MATRIXREQUEST._serialized_end=244
+  _MATRIXRESPONSE._serialized_start=246
+  _MATRIXRESPONSE._serialized_end=312
 # @@protoc_insertion_point(module_scope)
