@@ -6,7 +6,7 @@ cfg = Config()
 
 
 async def init(addresses=None, backend=None, verifier=None, client_manager=None):
-    cfg.configure(addresses, backend, verifier, client_manager)
+    cfg.configure(addresses, backend, client_manager)
     client_manager = cfg.client_manager_instance()
     await client_manager.ready()
 
@@ -21,4 +21,4 @@ async def matmul(a, b):
 
 
 def configure(addresses=None, backend=None, verifier=None, client_manager=None):
-    cfg.configure(addresses, backend, verifier, client_manager)
+    cfg.configure(addresses, backend, client_manager)

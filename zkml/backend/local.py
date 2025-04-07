@@ -6,6 +6,5 @@ class Local:
         pass
 
     async def matmul(self, a: np.ndarray, b: np.ndarray):
-        c = a * b
+        c = a @ b
         return np.array(c).reshape(c.shape[0], c.shape[1])
-        

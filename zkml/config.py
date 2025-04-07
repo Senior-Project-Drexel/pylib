@@ -2,7 +2,6 @@ class Config:
     def __init__(self):
         self.backend = "trust"  # {"local", "trust", "freivalds"}
         self.client_manager = "roundrobin"
-        self.verifier = "noop"
         self.addresses = []
         self._backend_instance = None
         self._verifier_instance = None
@@ -12,7 +11,6 @@ class Config:
         self,
         addresses=None,
         backend=None,
-        verifier=None,
         client_manager=None,
         **backend_options,
     ):
@@ -21,9 +19,6 @@ class Config:
         if backend is not None:
             self.backend = backend
             self._backend_instance = None
-        if verifier is not None:
-            self.verifier = verifier
-            self._verifier_instance = None
         if client_manager is not None:
             self.client_manager = client_manager
             self._client_manager_instance = None
@@ -32,11 +27,6 @@ class Config:
         if self._backend_instance is None:
             self._backend_instance = self._initialize_backend()
         return self._backend_instance
-
-    def verifier_instance(self):
-        if self._verifier_instance is None:
-            self._verifier_instance = self._initialize_verifier()
-        return self._verifier_instance
 
     def client_manager_instance(self):
         if self._client_manager_instance is None:
@@ -65,17 +55,9 @@ class Config:
                 "Unknown backend. Backend options: local, trust, freivalds"
             )
 
-    def _initialize_verifier(self):
-        if self.verifier == "noop":
-            from .verifier import NopVerifier
-
-            return NopVerifier()
-        else:
-            raise ValueError("Unknown verifier")
-
     def _initialize_client_manager(self):
         if self.client_manager == "roundrobin":
-            from .client_manager import RoundRobinClientManager
+            from .client import RoundRobinClientManager
 
             return RoundRobinClientManager(self.addresses)
         else:
