@@ -1,6 +1,6 @@
 import numpy as np
 
-import backend, client
+from . import backend, client
 
 impl = None
 
