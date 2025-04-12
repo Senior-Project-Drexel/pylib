@@ -11,5 +11,5 @@ class RoundRobinClientManager:
 
     def client(self):
         client = self.clients[self.next_client]
-        self.next_client = self.next_client + 1 % len(self.clients)
+        self.next_client = (self.next_client + 1) % len(self.clients)
         return client
