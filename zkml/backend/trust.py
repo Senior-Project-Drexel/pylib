@@ -6,6 +6,7 @@ class Trust:
     async def matmul(self, a, b):
         client = self.client_manager.client()
         matrix_id = await client.send_matrix(a, b, op=0)
-        _, c = await client.recv_matrix(matrix_id)
+        c = await client.recv_matrix(matrix_id)
+        e = None
 
-        return c
+        return e, c

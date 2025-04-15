@@ -7,4 +7,5 @@ class Local:
 
     async def matmul(self, a: np.ndarray, b: np.ndarray):
         c = a @ b
-        return np.array(c).reshape(c.shape[0], c.shape[1])
+        e = None
+        return e, np.array(c).reshape(c.shape[0], c.shape[1])

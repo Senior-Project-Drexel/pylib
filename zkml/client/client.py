@@ -32,7 +32,7 @@ class Client:
                 msg_len = int.from_bytes(len_bytes, byteorder="big")
 
                 msg_bytes = await self.reader.readexactly(msg_len)
-                response = matrix_pb.MatrixResponse()  # type: ignore
+                response = matrix_pb.MatrixResponse()
                 response.ParseFromString(msg_bytes)
 
                 # Get the ID and find the waiting task
@@ -55,17 +55,17 @@ class Client:
 
         cur_id = Client.matrix_id
 
-        matrix1 = matrix_pb.Matrix()  # type: ignore
+        matrix1 = matrix_pb.Matrix()
         matrix1.rows = a.shape[0]
         matrix1.cols = a.shape[1]
         matrix1.data.extend(a.flatten().tolist())
 
-        matrix2 = matrix_pb.Matrix()  # type: ignore
+        matrix2 = matrix_pb.Matrix()
         matrix2.rows = b.shape[0]
         matrix2.cols = b.shape[1]
         matrix2.data.extend(b.flatten().tolist())
 
-        matrix_request = matrix_pb.MatrixRequest()  # type: ignore
+        matrix_request = matrix_pb.MatrixRequest()
         matrix_request.matrix1.CopyFrom(matrix1)
         matrix_request.matrix2.CopyFrom(matrix2)
         matrix_request.operation = op
@@ -93,9 +93,6 @@ class Client:
         try:
             matrix_response = await future
             matrix_msg = matrix_response.matrix
-            evidence = None  # TODO
-            return evidence, np.array(matrix_msg.data).reshape(
-                matrix_msg.rows, matrix_msg.cols
-            )
+            return np.array(matrix_msg.data).reshape(matrix_msg.rows, matrix_msg.cols)
         finally:
             self.pending_responses.pop(id, None)
