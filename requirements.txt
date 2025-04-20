@@ -1,0 +1,13 @@
+iniconfig==2.1.0
+numpy==2.2.4
+packaging==24.2
+pandas==2.2.3
+pluggy==1.5.0
+protobuf==6.30.2
+pytest==8.3.5
+python-dateutil==2.9.0.post0
+pytz==2025.2
+six==1.17.0
+types-protobuf==5.29.1.20250403
+tzdata==2025.2
+-e git+ssh://git@github.com/Senior-Project-Drexel/pylib.git@efe2efea6da0907f29ee69758e188cf05dd3486e#egg=zkml
